@@ -16,21 +16,27 @@ export class GET_FROM_VM {
     this.apiToken = apiToken;
   }
 
-  async get<T>(params: string, options?: {
-    address?: string,
-    staking_address?: string,
-    // future parameters can be added here
-  }): Promise<T> {
+  async get<T>(action: string, options?: Record<string, any>): Promise<T> {
     if (!this.apiToken) {
       throw new Error('API token is not set. Use setApiToken() to set your token.');
     }
 
     try {
       const queryParams = new URLSearchParams({
-        action: params,
-        ...(options?.address ? { address: options.address } : {}),
-        ...(options?.staking_address ? { staking_address: options.staking_address } : {}),
+        action: action,
       });
+
+      if (options) {
+        Object.entries(options).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) {
+            if (typeof value === 'boolean') {
+              queryParams.append(key, value.toString());
+            } else {
+              queryParams.append(key, String(value));
+            }
+          }
+        });
+      }
 
       const url = `${this.baseUrl}/api.php?${queryParams.toString()}`;
       const response = await axios.get<T>(url, {
