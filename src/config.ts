@@ -1,1 +1,1 @@
-export const VM_URL = 'https://vmprev.adaseal.eu/';
+export const VM_URL = 'https://vmprev.adaseal.eu';
