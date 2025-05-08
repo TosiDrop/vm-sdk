@@ -183,3 +183,35 @@ export interface GetTx {
   slot: string;
   info: string;
 }
+
+export interface GetStatistics {
+  pool_id: string;
+  withdrawals: string;
+  collected_fees: string;
+}
+
+export interface GetWhitelist {
+  [key: string]: string[];
+}
+
+export interface GetBlacklist {
+  [key: string]: string[];
+}
+
+export interface GetSystemInfo {
+  backend_up: boolean;
+  ntds_up: boolean;
+  pending_tx: number;
+  pending_rewards: number;
+  pending_promises: number;
+  tracked_stake: number;
+  tracked_delegators: number;
+  delivered_rewards: number;
+  pending_withdrawals: number;
+  processed_withdrawals: number;
+  failed_withdrawals: number;
+  uptime: string;
+  uptime_ntds: string;
+  xwallet_size: number;
+  epoch: number;
+}
