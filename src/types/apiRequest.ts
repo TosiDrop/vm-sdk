@@ -56,3 +56,11 @@ export type GetPendingTxCountInput = {};
 export type GetTxInput = {
   txid: string;
 };
+
+export type GetStatisticsInput = {};
+
+export type GetWhitelistInput = {};
+
+export type GetBlacklistInput = {};
+
+export type GetSystemInfoInput = {};
