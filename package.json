@@ -37,6 +37,6 @@
     "eslint": "^10.0.0",
     "jest": "^30.0.5",
     "ts-jest": "^29.3.2",
-    "typescript": "^5.0.4"
+    "typescript": "^6.0.3"
   }
 }
