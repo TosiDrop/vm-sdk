@@ -1,0 +1,62 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'TosiDrop/vm-sdk'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify release tag
+        run: npm run release:check -- "$GITHUB_REF_NAME"
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build package
+        run: npm run build
+
+      - name: Inspect package contents
+        run: npm pack --dry-run
+
+      - name: Check npm version availability
+        run: |
+          package_name="$(node -p "require('./package.json').name")"
+          package_version="$(node -p "require('./package.json').version")"
+
+          if npm view "$package_name@$package_version" version >/tmp/npm-version.txt 2>/tmp/npm-view-error.txt; then
+            echo "::error::$package_name@$package_version already exists on npm."
+            exit 1
+          fi
+
+          if ! grep -q 'E404' /tmp/npm-view-error.txt; then
+            cat /tmp/npm-view-error.txt
+            exit 1
+          fi
+
+      - name: Publish package
+        run: npm publish --provenance --access public
