@@ -18,6 +18,7 @@
   "scripts": {
     "clean": "node scripts/clean-dist.mjs",
     "build": "npm run clean && tsc",
+    "prepare": "npm run build",
     "prepack": "npm run build",
     "release:check": "node scripts/validate-release-tag.mjs",
     "watch": "tsc --watch",
