@@ -1,6 +1,6 @@
 {
   "name": "vm-sdk",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A JavaScript/TypeScript SDK for interacting with the VM API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -39,19 +39,17 @@
     "sdk",
     "typescript",
     "vm",
-    "api",
-    "axios"
+    "api"
   ],
   "author": "Blink Labs",
   "license": "MIT",
-  "dependencies": {
-    "axios": "^1.3.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@swc/core": "^1.13.3",
     "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.0.0",
+    "axios": "^1.3.4",
     "eslint": "^10.0.0",
     "jest": "^30.0.5",
     "typescript": "^7.0.2"
