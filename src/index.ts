@@ -7,4 +7,4 @@ export * from './api/getDistributions';
 export * from './api/getSanitizedAddress';
 export * from './api/getRewardBreakdown';
 export * from './api/getRewards';
-
+export * from './utils/requests';
