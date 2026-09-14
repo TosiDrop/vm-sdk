@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { VM_URL } from '../config';
 
 // Global API token that can be set once
@@ -39,10 +38,13 @@ export class GET_FROM_VM {
       }
 
       const url = `${this.baseUrl}/api.php?${queryParams.toString()}`;
-      const response = await axios.get<T>(url, {
+      const response = await fetch(url, {
         headers: { 'X-API-Token': this.apiToken },
       });
-      return response.data;
+      if (!response.ok) {
+        throw new Error(`VM request failed with status ${response.status}`);
+      }
+      return await response.json() as T;
     } catch (error) {
       console.error('Error fetching data:', error);
       throw new Error('Failed to fetch data from VM.');
