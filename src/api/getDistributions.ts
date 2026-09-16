@@ -2,7 +2,7 @@ import { GET_FROM_VM } from '../utils/requests';
 import { GetDistributions as GetDistributionsResponse } from '../types/apiResponse';
 import { handleError, AppError } from '../utils/errorHandler';
 
-export async function getDistributions() {
+export async function getDistributions(): Promise<GetDistributionsResponse> {
   try {
     const vmClient = new GET_FROM_VM();
     const response = await vmClient.get<GetDistributionsResponse>('get_distributions');
