@@ -48,7 +48,7 @@ export interface GetPools {
   [key: string]: Pool;
 }
 
-export interface GetDistributions {
+export interface Distribution {
   id: string;
   token_id: string;
   amount: string;
@@ -59,7 +59,6 @@ export interface GetDistributions {
   target: string;
   model: string;
   expiry: string;
-  last_results: string;
   promise: string;
   return_policy: string;
   stake_cap: string;
@@ -68,6 +67,10 @@ export interface GetDistributions {
   last_status: string;
   last_time: string;
   project_locked: string;
+}
+
+export interface GetDistributions {
+  [audience: string]: Distribution[];
 }
 
 export interface GetSanitizedAddress {
